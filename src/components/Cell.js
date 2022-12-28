@@ -4,7 +4,7 @@ function Cell (props){
 
     function handleClick(){
         
-        props.swtichTurns(props.clickedIdx)
+        props.switchTurnsBoard(props.clickedIdx)
     }
 
     return(
