@@ -17,11 +17,11 @@ const winComb = [
     const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
     
     useEffect(() => {
-        ifHasWon();
+        ifGameOver();
       }, [board]);
     
-    function ifHasWon(){
-
+    function ifGameOver(){
+        
     }   
     function playMade(){
 
@@ -34,23 +34,23 @@ const winComb = [
             })
         );
         setWhosTurn("X"); 
-        props.switchTurns("X"); //// useState in Game - X starting again
-        props.handleIfWhoWon(""); // Function sent from game - no one won, sending empty who won msg
+        props.switchTurnsGame("X"); //// useState in Game - X starting again
+        props.handleGameOver(""); // Function sent from game - no one won, sending empty who won msg
         
     }
 
     return (
         <div>
           <div className="game-board">
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[0]} cellIndex={0}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[1]} cellIndex={1}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[2]} cellIndex={2}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[3]} cellIndex={3}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[4]} cellIndex={4}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[5]} cellIndex={5}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[6]} cellIndex={6}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[7]} cellIndex={7}></Cell>
-            <Cell turn={whosTurn} swapTurn={playMade} valueInCell={board[8]} cellIndex={8}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[0]} cellIndex={0}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[1]} cellIndex={1}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[2]} cellIndex={2}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[3]} cellIndex={3}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[4]} cellIndex={4}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[5]} cellIndex={5}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[6]} cellIndex={6}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[7]} cellIndex={7}></Cell>
+            <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[8]} cellIndex={8}></Cell>
           </div>
           <button className="reset-button" onClick={handleRestartGame}>
             Reset
