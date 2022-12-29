@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Board from './Board.js';
+import './MainGame.css'
+
 
 function Game(props) {
 

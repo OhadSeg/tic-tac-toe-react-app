@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import "./Cell.css"
 
 function Cell (props){
 
-    function handleClick(){
+    function handleClick(e){
         
         if(props.valueInCell===""){
-            props.switchTurnsBoard(props.clickedIdx);
+            props.switchTurnsBoard(props.cellIndex);
         }
-        
     }
 
     return(

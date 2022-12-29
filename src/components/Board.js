@@ -1,4 +1,5 @@
 import Cell from "./Cell.js";
+import './Board.css'
 import { useState, useEffect } from "react";
 const winComb = [
     [0, 1, 2],
@@ -20,12 +21,12 @@ const winComb = [
     // once playMade() made changes on board -> useEffect will be invoked
 
     useEffect(() => {
-        if(!handleIfWin()){
-            handleIfTie();
-        };        
+        handleIfWin();
+        handleIfTie();
+          
       }, [board])
     
-    function handleIfWin(){
+    const handleIfWin = () => {
         if(isThereAWinner()){
             if(whosTurn==="X"){
                 props.handleGameOver("Player X has won")
@@ -35,7 +36,7 @@ const winComb = [
             }
         }
     }   
-    function isThereAWinner(){
+    const isThereAWinner = () => {
         for(const comb of winComb){
             let [a, b, c] = comb;
             if(board[a] === whosTurn && board[b] === whosTurn && board[c] === whosTurn){
@@ -44,38 +45,43 @@ const winComb = [
         }
         return false;
     } 
-    function handleIfTie(){
-        if(isTie()){
+    const handleIfTie = ()=> {
+        let isTie = true;
+        board.forEach((val)=> {
+            if(val===""){
+                isTie = false;
+            }
+        })      
+       
+        if(isTie){
             props.handleGameOver("It's a tie")
         }
 
     }
 
-    function isTie(){
-        board.forEach((val, index)=> {
-            if(board[index]===""){
-                return false;
-            }
-        })
+        
 
-        return true;
 
-    }   
+       
     
     
     function playMade(cellClickedIdx){
+        console.log(cellClickedIdx);
         setBoard(
             board.map(
-                (element, index) => { 
-                    if(cellClickedIdx === index && element === ""){  // Clicked on valid empty cell
+                (valueInCell, cellIndex) => { 
+                    if(cellClickedIdx === cellIndex && valueInCell === ""){  // Clicked on valid empty cell
                         return whosTurn; // put in the cell the value of the current to play.
                     }
-                    else if(cellClickedIdx === index && element !== ""){ // clicked on an occupied cell
-                        return element;
+                    else if(cellClickedIdx === cellIndex && valueInCell !== ""){ // clicked on an occupied cell
+                        return valueInCell;
                         // add logic of turn remains on same side
                     } 
-                    else if (cellClickedIdx !==index){  // all other cells.
-                        return element;
+                    else if (cellClickedIdx !==cellIndex){  // all other cells.
+                        return valueInCell;
+                    }
+                    else{
+                        return valueInCell;
                     }
 
         } ));
@@ -90,6 +96,7 @@ const winComb = [
     }
 
     function handleRestartGame(){
+        console.log(board);
         setBoard(
             board.map( () => {
                 return "";
@@ -114,9 +121,7 @@ const winComb = [
             <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[7]} cellIndex={7}></Cell>
             <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[8]} cellIndex={8}></Cell>
           </div>
-          <button className="reset-button" onClick={handleRestartGame}>
-            Restart
-          </button>
+          <button className="reset-button" onClick={handleRestartGame}>Restart</button>
         </div>
       );
   }
