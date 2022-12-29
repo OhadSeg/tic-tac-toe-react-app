@@ -23,8 +23,7 @@ const winComb = [
     useEffect(() => {
         handleIfWin();
         handleIfTie();
-          
-      }, [board])
+          }, [board])
     
     const handleIfWin = () => {
         if(isThereAWinner()){
@@ -40,7 +39,8 @@ const winComb = [
         for(const comb of winComb){
             let [a, b, c] = comb;
             if(board[a] === whosTurn && board[b] === whosTurn && board[c] === whosTurn){
-                return [a, b, c]
+                
+                return [a, b, c];
             }
         }
         return false;
@@ -58,12 +58,6 @@ const winComb = [
         }
 
     }
-
-        
-
-
-       
-    
     
     function playMade(cellClickedIdx){
         console.log(cellClickedIdx);
@@ -87,11 +81,11 @@ const winComb = [
         } ));
         if(whosTurn === "X"){
             setWhosTurn("O");
-            props.switchTurnsGame("O");
+            props.switchTurnsGame("O ");
         }
         else{
             setWhosTurn("X");
-            props.switchTurnsGames("X");
+            props.switchTurnsGame("X ");
         }
     }
 
