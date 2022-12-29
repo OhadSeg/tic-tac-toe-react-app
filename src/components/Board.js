@@ -15,16 +15,78 @@ const winComb = [
 
     const[whosTurn,setWhosTurn] = useState(props.currToPlay);
     const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
-    
-    useEffect(() => {
-        ifGameOver();
-      }, [board]);
-    
-    function ifGameOver(){
-        
-    }   
-    function playMade(){
 
+    // the useEffect will enforce gameOver - check if someone won or there is a tie 
+    // once playMade() made changes on board -> useEffect will be invoked
+
+    useEffect(() => {
+        if(!handleIfWin()){
+            handleIfTie();
+        };        
+      }, [board])
+    
+    function handleIfWin(){
+        if(isThereAWinner()){
+            if(whosTurn==="X"){
+                props.handleGameOver("Player X has won")
+            }
+            else{
+                props.handleGameOver("Player O has won")
+            }
+        }
+    }   
+    function isThereAWinner(){
+        for(const comb of winComb){
+            let [a, b, c] = comb;
+            if(board[a] === whosTurn && board[b] === whosTurn && board[c] === whosTurn){
+                return [a, b, c]
+            }
+        }
+        return false;
+    } 
+    function handleIfTie(){
+        if(isTie()){
+            props.handleGameOver("It's a tie")
+        }
+
+    }
+
+    function isTie(){
+        board.forEach((val, index)=> {
+            if(board[index]===""){
+                return false;
+            }
+        })
+
+        return true;
+
+    }   
+    
+    
+    function playMade(cellClickedIdx){
+        setBoard(
+            board.map(
+                (element, index) => { 
+                    if(cellClickedIdx === index && element === ""){  // Clicked on valid empty cell
+                        return whosTurn; // put in the cell the value of the current to play.
+                    }
+                    else if(cellClickedIdx === index && element !== ""){ // clicked on an occupied cell
+                        return element;
+                        // add logic of turn remains on same side
+                    } 
+                    else if (cellClickedIdx !==index){  // all other cells.
+                        return element;
+                    }
+
+        } ));
+        if(whosTurn === "X"){
+            setWhosTurn("O");
+            props.switchTurnsGame("O");
+        }
+        else{
+            setWhosTurn("X");
+            props.switchTurnsGames("X");
+        }
     }
 
     function handleRestartGame(){
@@ -53,7 +115,7 @@ const winComb = [
             <Cell turn={whosTurn} switchTurnsBoard={playMade} valueInCell={board[8]} cellIndex={8}></Cell>
           </div>
           <button className="reset-button" onClick={handleRestartGame}>
-            Reset
+            Restart
           </button>
         </div>
       );

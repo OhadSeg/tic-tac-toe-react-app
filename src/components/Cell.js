@@ -4,7 +4,10 @@ function Cell (props){
 
     function handleClick(){
         
-        props.switchTurnsBoard(props.clickedIdx)
+        if(props.valueInCell===""){
+            props.switchTurnsBoard(props.clickedIdx);
+        }
+        
     }
 
     return(

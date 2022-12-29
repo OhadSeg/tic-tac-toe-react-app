@@ -16,7 +16,7 @@ function Game(props) {
 
     return(
         <div className ="main-game">
-            <title> Tic-Tac-Toe - LevelUp </title>
+            <h1 className = "tic-header">Tic Tac Toe Game!</h1>
             <h1>{whosTurn} turn </h1>
             <Board currToPlay = {whosTurn} switchTurnsGame = {handleTurnSwap} handleGameOver = {handleIfWhoWon}></Board>
             <h1>{winner}</h1>
