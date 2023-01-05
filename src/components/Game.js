@@ -13,6 +13,7 @@ function Game(props) {
     } 
 
     function handleIfWhoWon(winningMessage){
+        console.log(winningMessage);
         setWinner(winningMessage);
     }
 

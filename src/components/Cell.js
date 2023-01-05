@@ -3,7 +3,7 @@ import "./Cell.css"
 
 function Cell (props){
 
-    function handleClick(e){
+    function handleClick(){
         
         if(props.valueInCell===""){
             props.switchTurnsBoard(props.cellIndex);

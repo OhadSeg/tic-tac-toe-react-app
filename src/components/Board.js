@@ -28,23 +28,29 @@ const winComb = [
     const handleIfWin = () => {
         if(isThereAWinner()){
             if(whosTurn==="X"){
-                props.handleGameOver("Player X has won")
+                // pay attention that once we click cell - the whosTurn state immidietly changs so that if x won, will check it once the turn already changed to o turn.
+                props.handleGameOver("Player O has won")
+                console.log("X Won");
             }
             else{
-                props.handleGameOver("Player O has won")
+                props.handleGameOver("Player X has won")
+                console.log("O Won");
+
             }
         }
     }   
-    const isThereAWinner = () => {
+    const isThereAWinner = () => {  
         for(const comb of winComb){
             let [a, b, c] = comb;
-            if(board[a] === whosTurn && board[b] === whosTurn && board[c] === whosTurn){
+            if(board[a] !== '' && board[a] === board[b] && board[b] === board[c]){
                 
-                return [a, b, c];
+                return true;
             }
         }
         return false;
-    } 
+    }
+
+    
     const handleIfTie = ()=> {
         let isTie = true;
         board.forEach((val)=> {
@@ -59,26 +65,22 @@ const winComb = [
 
     }
     
-    function playMade(cellClickedIdx){
+    const playMade = (cellClickedIdx) => {
         console.log(cellClickedIdx);
         setBoard(
             board.map(
                 (valueInCell, cellIndex) => { 
                     if(cellClickedIdx === cellIndex && valueInCell === ""){  // Clicked on valid empty cell
+                        console.log(whosTurn);
                         return whosTurn; // put in the cell the value of the current to play.
                     }
-                    else if(cellClickedIdx === cellIndex && valueInCell !== ""){ // clicked on an occupied cell
-                        return valueInCell;
-                        // add logic of turn remains on same side
-                    } 
-                    else if (cellClickedIdx !==cellIndex){  // all other cells.
-                        return valueInCell;
-                    }
+                    
                     else{
                         return valueInCell;
                     }
 
         } ));
+        console.log(board);
         if(whosTurn === "X"){
             setWhosTurn("O");
             props.switchTurnsGame("O ");
