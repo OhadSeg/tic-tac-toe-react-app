@@ -10,6 +10,7 @@ useEffect (()=> {
     console.log(existenData);
     if(existenData != null) {
         setHistory(...history, JSON.parse(existenData)); // if there was data saved on local storage from previous session
+        console.log("existed data was updated");
     }
 },[]); // Using this useEffect only in the first time the component rendered
 

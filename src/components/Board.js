@@ -33,7 +33,7 @@ const winComb = [
     const handleIfWin = () => {
         if(isThereAWinner()){
 
-            let currDate = new Date().toLocaleDateString();
+            let currDate = new Date().toLocaleString();
             let winner;
 
             if(whosTurn==="X"){
@@ -74,7 +74,7 @@ const winComb = [
         })      
        
         if(isTie){
-            let currDate = new Date().toLocaleDateString();
+            let currDate = new Date().toLocaleString();
             saveToHistory("Draw", currDate);
             props.handleGameOver("It's a tie");
         }
