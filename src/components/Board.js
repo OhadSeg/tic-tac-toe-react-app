@@ -1,6 +1,8 @@
 import Cell from "./Cell.js";
 import './Board.css'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import HistoryContext from '../HistoryContext.js';
+
 const winComb = [
     [0, 1, 2],
     [3, 4, 5], 
@@ -12,8 +14,11 @@ const winComb = [
     [2, 4, 6],
   ];
 
+
   function Board(props){
 
+    const {saveToHistory} = useContext(HistoryContext);
+    const {history}  = useContext(HistoryContext);
     const[whosTurn,setWhosTurn] = useState(props.currToPlay);
     const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
 
@@ -27,14 +32,23 @@ const winComb = [
     
     const handleIfWin = () => {
         if(isThereAWinner()){
+
+            let currDate = new Date().toLocaleDateString();
+            let winner;
+
             if(whosTurn==="X"){
                 // pay attention that once we click cell - the whosTurn state immidietly changs so that if x won, will check it once the turn already changed to o turn.
+                console.log("O Won");
+                winner = "O";
+                saveToHistory(winner,currDate);
                 props.handleGameOver("Player O has won")
-                console.log("X Won");
+
             }
             else{
+                console.log("X Won");
+                winner = "X";    
+                saveToHistory(winner,currDate);
                 props.handleGameOver("Player X has won")
-                console.log("O Won");
 
             }
         }
@@ -60,7 +74,9 @@ const winComb = [
         })      
        
         if(isTie){
-            props.handleGameOver("It's a tie")
+            let currDate = new Date().toLocaleDateString();
+            saveToHistory("Draw", currDate);
+            props.handleGameOver("It's a tie");
         }
 
     }
