@@ -13,7 +13,7 @@ function Game(props) {
         setWhosTurn(switchToPlayer);
     } 
 
-    function handleIfWhoWon(winningMessage){
+    function handleIfWhoWon(winningMessage){ 
         console.log(winningMessage);
         setWinner(winningMessage);
     }
